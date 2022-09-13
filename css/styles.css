@@ -35,6 +35,7 @@ body {
     height: 44px;
     transition: 0.5s all linear;
     cursor: pointer;
+    overflow-x: auto;
 }
 
 .list-item {
