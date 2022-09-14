@@ -158,32 +158,33 @@ window.addEventListener('scroll', ()=> {
                 upBtn.classList.add('active');
             }
         }
+    });
 
-        // get height of header to calculate new to remove highlighted and UP button
-        let header = document.querySelector('.start-view-box');
-        header = header.offsetHeight;
-        if (posistion >= 0 && posistion <= (header*0.6)) {
-            removeHighlighted();
-            upBtn.classList.remove('active');
+    // get height of header to calculate new to remove highlighted and UP button
+    let header = document.querySelector('.start-view-box');
+    header = header.offsetHeight;
+    if (posistion >= 0 && posistion <= (header*0.6)) {
+        removeHighlighted();
+        upBtn.classList.remove('active');
+    }
+
+    // If there is a scroll it will clear timeOut() method
+    clearTimeout(timerHandler);
+    navBox.classList.remove('active');
+
+    /*
+     * set timeOut() to check scrolling status and
+     * remove Navigation bar if no scrolling happened with 
+     * 3 seconds delay.
+     */
+    timerHandler = setTimeout(() => {
+        if ((posistion >= 0 && posistion <= 150) || listBox.classList.contains('active')) {
+            navBox.classList.remove('active');
+        } else {
+            navBox.classList.add('active');
         }
-
-        // If there is a scroll it will clear timeOut() method
-        clearTimeout(timerHandler);
-        navBox.classList.remove('active');
-
-        /*
-         * set timeOut() to check scrolling status and
-         * remove Navigation bar if no scrolling happened with 
-         * 3 seconds delay.
-         */
-        timerHandler = setTimeout(() => {
-            if ((posistion >= 0 && posistion <= 150) || listBox.classList.contains('active')) {
-                navBox.classList.remove('active');
-            } else {
-                navBox.classList.add('active');
-            }
-        }, 3000);
-    })
+    }, 3000);
+    
 });
 
 /*
