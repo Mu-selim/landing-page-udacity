@@ -32,6 +32,7 @@ body {
 .list-box {
     list-style: none;
     display: flex;
+    justify-content: center;
     height: 44px;
     transition: 0.5s all linear;
     cursor: pointer;
@@ -91,7 +92,6 @@ body {
 }
 
 .start-view-box h1 {
-    display: inline;
     font-size: 6em;
     color: #ffffff;
 }
@@ -148,12 +148,15 @@ body {
 }
 
 /* ---- Odd sections Rules ---- */
-.section-odd p, .section-odd hr {
+.section:nth-of-type(odd) p,
+.section:nth-of-type(odd) hr {
     margin-right: 35%;
 }
 
 /* ---- Even sections Rules ---- */
-.section-even p, .section-even h2, .section-even hr {
+.section:nth-of-type(even) p,
+.section:nth-of-type(even) h2,
+.section:nth-of-type(even) hr {
     margin-left: 35%;
 }
 
@@ -219,6 +222,8 @@ body {
 }
 
 /* ---- Media query  Rules ---- */
+
+/* Screens with less than 700px width */
 @media (max-width: 700px) {
     .hamgurger-menu {
         display: flex;
@@ -251,7 +256,6 @@ body {
     }
 
     /* ---- ACTIVE class Rules ---- */
-
     .hamgurger-menu.active #top {
         transform: rotate(45deg) translate(4px);
     }
@@ -269,6 +273,7 @@ body {
     }
 }
 
+/* Screens with less than 600px width */
 @media (max-width: 600px) {
     .sections-box {
         margin: 44px 4px 4px 4px;
@@ -278,15 +283,19 @@ body {
         font-size: 90%;
     }
 
-    .section-odd p, .section-odd hr {
+    .section:nth-of-type(odd) p, 
+    .section:nth-of-type(odd) hr {
         margin-right: 20%;
     }
     
-    .section-even p, .section-even h2, .section-even hr {
+    .section:nth-of-type(even) p, 
+    .section:nth-of-type(even) h2, 
+    .section:nth-of-type(even) hr {
         margin-left: 20%;
     }
 }
 
+/* Screens with less than 450px width */
 @media (max-width: 450px) {
 
     .start-view-box h1 {
@@ -309,11 +318,14 @@ body {
         font-size: 80%;
     }
 
-    .section-odd p, .section-odd hr {
+    .section:nth-of-type(odd), 
+    .section:nth-of-type(odd) hr {
         margin-right: 10%;
     }
     
-    .section-even p, .section-even h2, .section-even hr {
+    .section:nth-of-type(even) p, 
+    .section:nth-of-type(even) h2, 
+    .section:nth-of-type(even) hr {
         margin-left: 10%;
     }
 
@@ -329,7 +341,12 @@ body {
     }
 }
 
+/* Screens with less than 320px width */
 @media (max-width: 320px) {
+
+    .start-view-box {
+        padding: 0 12px;
+    }
     .start-view-box h1 {
         font-size: 2.5em;
     }
@@ -342,7 +359,7 @@ body {
     }
 }
 
-/* Section Active Styles Keyframe Animations */
+/* Section ACTIVE Styles Keyframe Animations */
 @keyframes rotate {
 	from {
 		transform: rotate(0deg)

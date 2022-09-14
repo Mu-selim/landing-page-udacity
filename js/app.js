@@ -1,16 +1,16 @@
 /**
  * 
- * Manipulating the DOM exercise.
- * Exercise programmatically builds navigation,
- * scrolls to anchors from navigation,
- * and highlights section in viewport upon scrolling.
+ * TODO: Manipulating the DOM.
+ * TODO: Creating Navigation list dynanically based on the number of sections.
+ * TODO: Highlighting the section in viewpoint and the list item upon scrolling dynamically.
+ * TODO: Adding a new section and a list item when "Add Section" button is clicked.
+ * TODO: Hiding navigation bar when the user stop scrolling.
+ * TODO: Dealing with 'scroll', 'mouse', and 'addEventListener' events.
+ * TODO: Showing navigation bar if mouse moves to the top of screen.
+ * TODO: Scrolling to the top of the page if "up" button is clicked.
  * 
- * Dependencies: None
- * 
- * JS Version: ES2015/ES6
- * 
- * JS Standard: ESlint
- * 
+ * * Dependencies: None
+ * * JS Version: ES2015/ES6
 */
 
 // Global variables declaration
@@ -21,6 +21,10 @@ const navBox = document.querySelector('.nav-bar-box'),
       upBtn = document.querySelector('.up-btn'),
       addSectionBtn = document.querySelector('button');
 
+/*
+ * counter: counts the number of sections available in the page
+ * timerHandler: is used to clear setTimeout()
+ */
 let counter = 1,
     timerHandler;
 // End Global variables
@@ -33,9 +37,9 @@ let createNavBarItem = (i) => {
 }
 
 /* 
-Remove Active|Highlighted Navigation items
-also the background of active section 
-*/
+ * Remove Active|Highlighted Navigation items
+ * also the background of active sections.
+ */
 let removeHighlighted = () => {
     document.querySelectorAll('.list-item').forEach(item => {
         item.classList.remove('active');
@@ -46,9 +50,9 @@ let removeHighlighted = () => {
 }
 
 /*
-Add Active class to highlight the section
-and the navigation item with right posistion
-*/
+ * Add Active class to highlight the section
+ * and the navigation item with right posistion
+ */
 let addHighlight = (id)=> {
     let section = document.getElementById(id),
         listItem = document.getElementById(`${id}-item`);      
@@ -57,24 +61,18 @@ let addHighlight = (id)=> {
 }
 
 /*
-Adding function which will be used to create
-new sections
-*/
+ * Adding function which will be used to create
+ * new sections
+ */
 let createSection = () => {
-    let tmp;
-    if (counter % 2 === 0) {
-        tmp = 'even';
-    } else {
-        tmp = 'odd';
-    }
-    tmp = 
-    `<section class="section section-${tmp}" id="section${counter}">
+    let element = 
+    `<section class="section" id="section${counter}">
         <h2>Section ${counter}</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod.</p>
         <p>Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.</p>
     </section>`;
     let sectionsBox = document.querySelector('.sections-box');
-    sectionsBox.insertAdjacentHTML('beforeend', tmp);
+    sectionsBox.insertAdjacentHTML('beforeend', element);
 }
 
 // Initialize|Building Navigation Bar
@@ -83,9 +81,9 @@ sections.forEach((_, index) => {
 });
 
 /*
-preventDefault of anchor tag to make navigation between
-sections by using js.
-*/
+ * preventDefault of anchor tag to make navigation between
+ * sections done by using js.
+ */
 const anchor = document.querySelectorAll('.anchor');
 anchor.forEach(item => {
     item.addEventListener('click', (event)=> {
@@ -94,18 +92,18 @@ anchor.forEach(item => {
 });
 
 /* 
-Hamburger menu functionalities, shows and hides
-the menu if user clicks.
-*/
+ * Hamburger menu functionalities, shows and hides
+ * the menu if user clicks.
+ */
 hamgurgerMenuBtn.addEventListener('click', ()=> {
     listBox.classList.toggle('active');
     hamgurgerMenuBtn.classList.toggle('active');
 });
 
 /*
-adding UP button functionalities to get back
-top of page.
-*/
+ * adding UP button functionalities to get back
+ * top of page.
+ */
 upBtn.addEventListener('click', ()=> {
     // for Safari
     document.body.scrollTop = 0;
@@ -114,12 +112,13 @@ upBtn.addEventListener('click', ()=> {
 });
 
 /*
-Adiing navigation method to change between different
-sections using Navigation bar
-*/
+ * Adiing navigation method to change between different
+ * sections using Navigation bar
+ */
 let sectionNavigation = ()=> {
     document.querySelectorAll('.list-item').forEach((item, index) => {
         item.addEventListener('click', ()=> {
+            // calculates the perfect position of section.
             let sectionPosition = (sections[0].offsetHeight * (index+1)) + (index * 8); // (index*8) to cover margins
             // for Safari
             document.body.scrollTop = sectionPosition;
@@ -133,14 +132,14 @@ let sectionNavigation = ()=> {
     });
 }
 
-// call function to enable navigation
+// call function to enable navigation of the added list Items.
 sectionNavigation();
 
 /*
-Adding scroll event to detect any movement in
-the page and mark it to section and navigation
-item.
-*/
+ * Adding scroll event to detect any movement in
+ * the page and mark it to section and navigation
+ * item.
+ */
 window.addEventListener('scroll', ()=> {
 
     let posistion = document.body.scrollTop, /* get top Y position of page */
@@ -173,9 +172,10 @@ window.addEventListener('scroll', ()=> {
         navBox.classList.remove('active');
 
         /*
-        set timeOut() to check scrolling status and
-        remove Navigation bar if no scrolling happened
-        */
+         * set timeOut() to check scrolling status and
+         * remove Navigation bar if no scrolling happened with 
+         * 3 seconds delay.
+         */
         timerHandler = setTimeout(() => {
             if ((posistion >= 0 && posistion <= 150) || listBox.classList.contains('active')) {
                 navBox.classList.remove('active');
@@ -187,13 +187,13 @@ window.addEventListener('scroll', ()=> {
 });
 
 /*
-Adding eventListerner to button
-*/
+ * Adding eventListerner to "Add Section" button.
+ */
 addSectionBtn.addEventListener('click', ()=> {
     createSection(); // creates a new section
     createNavBarItem(counter); // adds a new list items
 
-    // preventDefault from the new anchor element
+    // preventDefault of the new anchor element.
     let lastAnchor = document.querySelectorAll('.anchor');
     lastAnchor = lastAnchor[lastAnchor.length-1];
     lastAnchor.addEventListener('click', (event)=> {
@@ -205,9 +205,10 @@ addSectionBtn.addEventListener('click', ()=> {
 
 
 /*
-addEventListener to show navigation bar if needed when there
-is no scrolling and it was hidden
-*/
+ * addEventListener to show navigation bar if needed when there
+ * is no scrolling and it was hidden when the mouse is in the top
+ * of the screen [the height 44px of navigation bar].
+ */
 window.addEventListener('mousemove', (event)=> {
     let curser = event.y;
     if (curser >= 0 && curser <= 44) {
