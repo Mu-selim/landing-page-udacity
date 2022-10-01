@@ -105,35 +105,34 @@ hamgurgerMenuBtn.addEventListener('click', ()=> {
  * top of page.
  */
 upBtn.addEventListener('click', ()=> {
-    // for Safari
-    document.body.scrollTop = 0;
-    // for Chrome, Firefox, etc....
-    document.documentElement.scrollTop = 0;
+    document.querySelector('.start-view-box').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
 });
 
 /*
  * Adiing navigation method to change between different
  * sections using Navigation bar
  */
-let sectionNavigation = ()=> {
-    document.querySelectorAll('.list-item').forEach((item, index) => {
-        item.addEventListener('click', ()=> {
-            // calculates the perfect position of section.
-            let sectionPosition = (sections[0].offsetHeight * (index+1)) + (index * 8); // (index*8) to cover margins
-            // for Safari
-            document.body.scrollTop = sectionPosition;
-            // for Chrome, Firefox, etc....
-            document.documentElement.scrollTop = sectionPosition;
-            if (listBox.classList.contains('active')) {
-                listBox.classList.remove('active');
-                hamgurgerMenuBtn.classList.remove('active');
-            }
+let sectionStartNavigation = (id)=> {
+    document.getElementById(`section${id}-item`).addEventListener('click', ()=> {
+        let element = document.getElementById(`section${id}`);
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
         });
+        if (listBox.classList.contains('active')) {
+            listBox.classList.remove('active');
+            hamgurgerMenuBtn.classList.remove('active');
+        }
     });
 }
 
 // call function to enable navigation of the added list Items.
-sectionNavigation();
+for(let i = 1; i <= 4; i++) {
+    sectionStartNavigation(i);
+}
 
 /*
  * Adding scroll event to detect any movement in
@@ -201,7 +200,7 @@ addSectionBtn.addEventListener('click', ()=> {
         event.preventDefault();
     });
     
-    sectionNavigation(); // call function to add new item functionalities
+    sectionStartNavigation(counter-1); // call function to add new item functionalities
 });
 
 
